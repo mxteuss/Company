@@ -1,12 +1,11 @@
 package controller;
 
-import controller.save;
-import model.Funcionarios;
-import service.adicionarFuncionario;
+import model.Employee;
+import service.AddEmployee;
 
 public class MenuCadastro {
     public static void main(String[] args) {
-        Funcionarios f = adicionarFuncionario.addFunc();
+        Employee f = AddEmployee.add();
         if (f != null) {
             save.salvar(f);
         } else {

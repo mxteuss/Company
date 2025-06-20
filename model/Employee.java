@@ -2,24 +2,24 @@ package model;
 
 import model.Enum.Tipo;
 
-public abstract class Funcionarios {
+public abstract class Employee {
     protected Tipo tipo;
     protected String nome;
     protected double salarioBase;
 
 
-    public Funcionarios(Tipo tipo, String nome, double salarioBase) {
+    public Employee(Tipo tipo, String nome, double salarioBase) {
         this.tipo = tipo;
         this.nome = nome;
         this.salarioBase = salarioBase;
     }
 
-    public Funcionarios() {
+    public Employee() {
     }
 
     protected abstract Double salarioFinal();
 
-    public static class Efetivo extends Funcionarios{
+    public static class Efetivo extends Employee {
         public double bonusFixo = 500.00;
         public Efetivo(Tipo tipo,String nome, double salarioBase) {
             super(tipo, nome, salarioBase);
@@ -47,7 +47,7 @@ public abstract class Funcionarios {
 
 
 
-    public static class Terceirizado extends Funcionarios{
+    public static class Terceirizado extends Employee {
         public Double adicionalVar;
 
         public Terceirizado(Tipo tipo, String nome, double salarioBase, double adicionalVar) {
@@ -68,7 +68,7 @@ public abstract class Funcionarios {
         @Override
         public String toString() {
             return tipo.getDesc() +
-                    ";" + nome + '\'' +
+                    ";" + nome +
                     ";" + salarioBase +
                     ";" + adicionalVar;
         }

@@ -1,16 +1,13 @@
 package controller;
 
-import model.Funcionarios;
-import service.adicionarFuncionario;
+import model.Employee;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class save {
-    public static void salvar  (Funcionarios f){
+    public static void salvar  (Employee f){
         if (f != null) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/data/funcionarios.txt", true))) {
                 bw.write(f.toString());
