@@ -2,26 +2,26 @@ package model;
 
 import model.Enum.Tipo;
 
-public abstract class Funcionarios {
+public abstract class Employee {
     protected Tipo tipo;
     protected String nome;
-    protected double salarioBase;
+    protected Integer salarioBase;
 
 
-    public Funcionarios(Tipo tipo, String nome, double salarioBase) {
+    public Employee(Tipo tipo, String nome, Integer salarioBase) {
         this.tipo = tipo;
         this.nome = nome;
         this.salarioBase = salarioBase;
     }
 
-    public Funcionarios() {
+    public Employee() {
     }
 
     protected abstract Double salarioFinal();
 
-    public static class Efetivo extends Funcionarios{
+    public static class Efetivo extends Employee {
         public double bonusFixo = 500.00;
-        public Efetivo(Tipo tipo,String nome, double salarioBase) {
+        public Efetivo(Tipo tipo,String nome, Integer salarioBase) {
             super(tipo, nome, salarioBase);
         }
         @Override
@@ -38,7 +38,7 @@ public abstract class Funcionarios {
         @Override
         public String toString() {
             return tipo.getDesc() +
-                    ";" + nome + '\'' +
+                    ";" + nome +
                     ";" + salarioBase +
                     ';';
         }
@@ -47,10 +47,10 @@ public abstract class Funcionarios {
 
 
 
-    public static class Terceirizado extends Funcionarios{
+    public static class Terceirizado extends Employee {
         public Double adicionalVar;
 
-        public Terceirizado(Tipo tipo, String nome, double salarioBase, double adicionalVar) {
+        public Terceirizado(Tipo tipo, String nome, Integer salarioBase, double adicionalVar) {
             super(tipo, nome, salarioBase);
             this.adicionalVar = adicionalVar;
         }
@@ -68,7 +68,7 @@ public abstract class Funcionarios {
         @Override
         public String toString() {
             return tipo.getDesc() +
-                    ";" + nome + '\'' +
+                    ";" + nome +
                     ";" + salarioBase +
                     ";" + adicionalVar;
         }

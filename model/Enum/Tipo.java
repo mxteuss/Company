@@ -21,5 +21,4 @@ public enum Tipo {
         }
         return null;
     }
-
 }
