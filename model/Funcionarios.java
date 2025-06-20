@@ -1,20 +1,28 @@
 package model;
 
+import model.Enum.Tipo;
+
 public abstract class Funcionarios {
+    protected Tipo tipo;
     protected String nome;
     protected double salarioBase;
 
-    public Funcionarios(String nome, double salarioBase) {
+
+    public Funcionarios(Tipo tipo, String nome, double salarioBase) {
+        this.tipo = tipo;
         this.nome = nome;
         this.salarioBase = salarioBase;
+    }
+
+    public Funcionarios() {
     }
 
     protected abstract Double salarioFinal();
 
     public static class Efetivo extends Funcionarios{
         public double bonusFixo = 500.00;
-        public Efetivo(String nome, double salarioBase) {
-            super(nome, salarioBase);
+        public Efetivo(Tipo tipo,String nome, double salarioBase) {
+            super(tipo, nome, salarioBase);
         }
         @Override
         protected Double salarioFinal(){
@@ -26,6 +34,14 @@ public abstract class Funcionarios {
             return salarioFinal();
 
         }
+
+        @Override
+        public String toString() {
+            return tipo.getDesc() +
+                    ";" + nome + '\'' +
+                    ";" + salarioBase +
+                    ';';
+        }
     }
 
 
@@ -34,8 +50,8 @@ public abstract class Funcionarios {
     public static class Terceirizado extends Funcionarios{
         public Double adicionalVar;
 
-        public Terceirizado(String nome, double salarioBase, double adicionalVar) {
-            super(nome, salarioBase);
+        public Terceirizado(Tipo tipo, String nome, double salarioBase, double adicionalVar) {
+            super(tipo, nome, salarioBase);
             this.adicionalVar = adicionalVar;
         }
 
@@ -48,5 +64,15 @@ public abstract class Funcionarios {
         public Double calcularSalarioFinal(){
             return salarioFinal();
         }
+
+        @Override
+        public String toString() {
+            return tipo.getDesc() +
+                    ";" + nome + '\'' +
+                    ";" + salarioBase +
+                    ";" + adicionalVar;
+        }
     }
+
+
 }

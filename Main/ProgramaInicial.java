@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.Enum.Tipo;
 import model.Funcionarios;
 
 public class ProgramaInicial {
@@ -22,17 +23,15 @@ public class ProgramaInicial {
             e.printStackTrace();
         }
 
-
-
        for (String line : info){
            String [] partes = line.split(";");
            if (partes[0].equalsIgnoreCase("Efetivo")){
-               Funcionarios.Efetivo efetivados = new Funcionarios.Efetivo(partes[1], Double.parseDouble(partes[2]));
+               Funcionarios.Efetivo efetivados = new Funcionarios.Efetivo(Tipo.EFETIVO, partes[1], Double.parseDouble(partes[2]));
             double sF = efetivados.calcularSalarioFinal();
                System.out.println("Salário de: " + partes[1] + "R$: " + sF);
            }
            if(partes[0].equalsIgnoreCase("Terceirizado")){
-               Funcionarios.Terceirizado terceirizado = new Funcionarios.Terceirizado(partes[1], Double.parseDouble(partes[2]), Double.parseDouble(partes[3]));
+               Funcionarios.Terceirizado terceirizado = new Funcionarios.Terceirizado(Tipo.TERCEIRIZADO, partes[1], Double.parseDouble(partes[2]), Double.parseDouble(partes[3]));
                 double sF = terceirizado.calcularSalarioFinal();
                System.out.println("Salário de: " + partes[1] + ": R$" + sF);
            }
