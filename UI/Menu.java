@@ -2,11 +2,8 @@ package UI;
 
 import java.util.Scanner;
 
-import service.CalculateSalary;
+import service.*;
 import model.Employee;
-import service.AddEmployee;
-import service.SearchEmployee;
-import service.ViewEmployee;
 
 public class Menu {
     public static void main(String[] args) {
@@ -21,26 +18,30 @@ public class Menu {
         System.out.println("2 - Adicionar novo funcionário");
         System.out.println("3 - Visualizar funcionários");
         System.out.println("4 - Buscar funcionário");
-        Scanner sc = new Scanner(java.lang.System.in);
+        System.out.println("5 - Relatório da empresa");
+        Scanner sc = new Scanner(System.in);
         int opcao = sc.nextInt();
         System.out.println("Opção escolhida: " + opcao);
         //
-        switch (opcao){
-            case 1: CalculateSalary.calculate();
-            break;
+        switch (opcao) {
+            case 1:
+                CalculateSalary.calculate();
+                break;
 
-            case 2: AddEmployee.add();
-            break;
+            case 2:
+                AddEmployee.add();
+                break;
 
             case 3:
                 ViewEmployee.view();
-            break;
+                break;
             case 4:
                 SearchEmployee.search();
-            break;
+                break;
+            case 5:
+                ReportService.loadReport();
+                break;
         }
-
-
         // O projeto tera novas features à medida que eu for evoluindo
     }
 }

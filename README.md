@@ -8,3 +8,4 @@ This project implements a system to calculate the monthly salary of employees ba
 - Read employee data from a file.
 - Easily extensible for other employee types or salary rules.
 - View the list of all employees on data
+- Search employees by name
