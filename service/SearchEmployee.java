@@ -8,17 +8,21 @@ import model.Enum.Tipo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class SearchEmployee {
     public static Employee search(){
+        Path caminho = Paths.get("src/data/funcionarios.txt");
         Scanner sc = new Scanner(System.in);
         System.out.println("Informe o nome do funcionário para busca: ");
         String nomeStr = sc.nextLine();
         String linha;
         Employee employeeFounded = null;
-        try (BufferedReader br = new BufferedReader(new FileReader("src/data/funcionarios.txt"))){
+        try (BufferedReader br = Files.newBufferedReader(caminho)){
             while ((linha = br.readLine()) != null){
                 String [] partes = linha.split(";");
                 if (partes[1].equalsIgnoreCase(nomeStr)){
@@ -38,6 +42,7 @@ public class SearchEmployee {
         }
         finally {
             System.out.println("Busca encerrada.");
+            sc.close();
         }
         return employeeFounded;
         }

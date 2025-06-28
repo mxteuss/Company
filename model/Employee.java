@@ -8,6 +8,30 @@ public abstract class Employee {
     protected Integer salarioBase;
 
 
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getSalarioBase() {
+        return salarioBase;
+    }
+
+    public void setSalarioBase(Integer salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
     public Employee(Tipo tipo, String nome, Integer salarioBase) {
         this.tipo = tipo;
         this.nome = nome;

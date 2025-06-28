@@ -3,6 +3,9 @@ package service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,9 @@ import model.Employee;
 public class CalculateSalary {
     public static Employee calculate(){
         List<String> info = new ArrayList<>();
+        Path caminho = Paths.get("src/data/funcionarios.txt");
         String linha = "";
-        try (BufferedReader br = new BufferedReader(new FileReader("src/data/funcionarios.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(caminho)) {
             while ((linha = br.readLine()) != null){
                 info.add(linha);
             }

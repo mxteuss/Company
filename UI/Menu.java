@@ -19,6 +19,7 @@ public class Menu {
         System.out.println("3 - Visualizar funcionários");
         System.out.println("4 - Buscar funcionário");
         System.out.println("5 - Relatório da empresa");
+        System.out.println("6 - Editar dados de funcionário");
         Scanner sc = new Scanner(System.in);
         int opcao = sc.nextInt();
         System.out.println("Opção escolhida: " + opcao);
@@ -41,6 +42,8 @@ public class Menu {
             case 5:
                 ReportService.loadReport();
                 break;
+            case 6:
+                EditEmployee.edit();
         }
         // O projeto tera novas features à medida que eu for evoluindo
     }

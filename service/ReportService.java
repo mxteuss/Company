@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +17,13 @@ public class ReportService {
     public static Employee loadReport(){
         List<String> partTime = new ArrayList<>();
         List<String> fullTime = new ArrayList<>();
+        Path caminho = Paths.get("src/data/funcionarios.txt");
         double mediaS = 0;
         double total = 0;
         double temp = 0;
         double temp2 = 0;
         String linha;
-        try (BufferedReader br = new BufferedReader(new FileReader("src/data/funcionarios.txt"))){
+        try (BufferedReader br = Files.newBufferedReader(caminho)){
             while ((linha = br.readLine()) != null){
                 String [] partes = linha.split(";");
                 if (partes[0].equalsIgnoreCase("Terceirizado")){
