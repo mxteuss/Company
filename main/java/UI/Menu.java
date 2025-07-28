@@ -1,9 +1,16 @@
 package UI;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
-import service.*;
+import controller.save;
+import dao.ConnectionFactory;
+import dao.EmployeeDAO;
 import model.Employee;
+import service.*;
+
+import model.*;
+import util.Singleton;
 
 public class Menu {
     public static void main(String[] args) {
@@ -20,8 +27,9 @@ public class Menu {
         System.out.println("4 - Buscar funcionário");
         System.out.println("5 - Relatório da empresa");
         System.out.println("6 - Editar dados de funcionário");
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Singleton.getInstance();
         int opcao = sc.nextInt();
+        sc.nextLine();
         System.out.println("Opção escolhida: " + opcao);
         //
         switch (opcao) {
@@ -30,7 +38,14 @@ public class Menu {
                 break;
 
             case 2:
-                AddEmployee.add();
+                Employee newEmp = AddEmployee.add();
+                save.salvar(newEmp);
+                try (Connection conn = ConnectionFactory.getConnection()){
+                    save.salvarDB(conn, newEmp);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
 
             case 3:

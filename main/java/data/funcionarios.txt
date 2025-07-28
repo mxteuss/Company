@@ -1,0 +1,14 @@
+Efetivo;João;3000
+Efetivo;Maria;3500
+Efetivo;Carlos;3000;
+Efetivo;Mateus;6000;
+Efetivo;Mizael;4000;
+Terceirizado;Ycaro;2000;400.0
+Efetivo;Ycaro;3000;
+Terceirizado;Dante;4000;300.0
+Terceirizado;Julia;5000;100.0
+Efetivo;Luffy;3000;
+Terceirizado;Ycaro;3000;100
+Terceirizado;Ycaro;2000;200
+Terceirizado;Mateus;3000;200
+Terceirizado;Ycaro;3000;200
