@@ -8,7 +8,22 @@ public abstract class Employee {
     protected Integer salarioBase;
     protected Integer adicionalVar;
 
-    public Employee(Tipo tipo, String nome, Integer salarioBase, Integer adicionalVar) {
+    public Employee() {
+    }
+
+    // construtor pra terceirizado
+    public Employee(Tipo tipo,  String nome, Integer salarioBase, Integer adicionalVar) {
+        this.tipo = tipo;
+        this.nome = nome;
+        this.salarioBase = salarioBase;
+        this.adicionalVar = adicionalVar;
+    }
+
+    // construtor pra efetivo
+    public Employee(Tipo tipo, Integer salarioBase, String nome) {
+        this.tipo = tipo;
+        this.salarioBase = salarioBase;
+        this.nome = nome;
     }
 
     public Tipo getTipo() {
@@ -41,15 +56,6 @@ public abstract class Employee {
 
     public void setAdicionalVar(Integer adicionalVar) {
         this.adicionalVar = adicionalVar;
-    }
-
-    public Employee(Tipo tipo, String nome, Integer salarioBase) {
-        this.tipo = tipo;
-        this.nome = nome;
-        this.salarioBase = salarioBase;
-    }
-
-    public Employee() {
     }
 
     protected abstract Integer salarioFinal();

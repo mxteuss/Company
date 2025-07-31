@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class save {
     public static void salvar  (Employee f){
         if (f != null) {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/data/funcionarios.txt", true))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/data/funcionarios.txt", true))) {
                 bw.write(f.toString());
                 bw.newLine();
                 System.out.println("Dados salvos.");
