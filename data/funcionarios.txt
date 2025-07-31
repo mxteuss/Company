@@ -1,5 +1,4 @@
-Efetivo;João;3000
-Efetivo;Maria;3500
-Efetivo;Carlos;3000;600
-Efetivo;Mateus;6000;
-Efetivo;Mizael;4000;
+Terceirizado;Ycaro;3000;200
+Terceirizado;Mateus;5000;300
+Terceirizado;Julia;2000;100
+Efetivo;Richard;5000;

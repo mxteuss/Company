@@ -2,7 +2,6 @@ package service;
 
 import model.Employee;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,9 +18,10 @@ public class ReportService {
         double total = 0;
         double temp = 0;
         double temp2 = 0;
-        String linha;
-        try (BufferedReader br = Files.newBufferedReader(caminho)){
-            while ((linha = br.readLine()) != null){
+
+        try {
+            List<String> linhas = Files.readAllLines(caminho);
+                for (String linha : linhas){
                 String [] partes = linha.split(";");
                 if (partes[0].equalsIgnoreCase("Terceirizado")){
                     partTime.add(linha);
@@ -35,11 +35,12 @@ public class ReportService {
                 }
                 total = temp + temp2;
                 mediaS = total / (fullTime.size() + partTime.size());
-            }
-            System.out.println("Quantidade de funcionários terceirizados: " + partTime.size());
+
+        }
+        System.out.println("Quantidade de funcionários terceirizados: " + partTime.size());
             System.out.println("Quantidade de funcionários efetivados: " + fullTime.size());
             System.out.println("Total de salário: " + total);
-            System.out.println("Média de salário: " +mediaS);
+            System.out.println("Média de salário: " + mediaS);
 
         }
         catch (IOException e){

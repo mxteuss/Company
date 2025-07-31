@@ -9,12 +9,10 @@ import util.Singleton;
 
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SearchEmployee {
@@ -23,9 +21,9 @@ public class SearchEmployee {
         Scanner sc = Singleton.getInstance();
         System.out.println("Informe o nome do funcionário para busca: ");
         String nomeStr = sc.nextLine();
-        sc.nextLine();
         String linha;
         Employee employeeFounded = null;
+
         try (BufferedReader br = Files.newBufferedReader(caminho)){
             while ((linha = br.readLine()) != null){
                 String [] partes = linha.split(";");
