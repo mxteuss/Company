@@ -1,11 +1,13 @@
-## Employee Salary Calculator
+## Gerenciador de Funcionários
+Este projeto implementa um sistema de gerenciamento de funcionários via CLI, integrado com Maven e Docker para conexão com banco de dados. O sistema diferencia entre funcionários efetivos e terceirizados, aplicando regras salariais específicas para cada tipo.
 
-This project implements a system to calculate the monthly salary of employees based on their employment type. The system differentiates between permanent employees and outsourced (contract) employees and applies the respective salary rules for each.
+## Funcionalidades
+- Calcula o salário mensal de funcionários efetivos e terceirizados. 
+- Lê os dados dos funcionários a partir de um arquivo.
+- Adiciona novos funcionários e os insere no banco de dados.
+- Visualiza a lista de todos os funcionários cadastrados.
+- Pesquisa de funcionários por nome.
+- Edição de dados do funcionário.
 
-## Features
-- Calculate monthly salary for permanent employees (base salary + fixed bonuses).
-- Calculate monthly salary for outsourced employees (base salary + hourly rate for extra hours).
-- Read employee data from a file.
-- Easily extensible for other employee types or salary rules.
-- View the list of all employees on data
-- Search employees by name
+
+[Demonstração](https://www.youtube.com/watch?v=zYNisM-Yi3w)
