@@ -37,7 +37,7 @@ public class Menu {
         //
         switch (opcao) {
             case 1:
-                newEmp = addEmployee.add();
+                newEmp = AddEmployee.add();
                 employeeService.salvar(newEmp);
                 break;
 
@@ -46,10 +46,11 @@ public class Menu {
                 log.info(all);
                 break;
             case 3:
-                searchEmployee.search();
+                List<Employee> search = employeeService.search();
+                log.info(search);
                 break;
             case 4:
-                reportService.loadReport();
+                report.loadReport();
                 break;
             case 5:
                 employeeService.uptade();

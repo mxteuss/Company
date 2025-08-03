@@ -22,17 +22,17 @@ public class AddEmployee {
             case "EFETIVO":
                 employee = new Efetivo();
                 employee.setTipo(EFETIVO);
-            break;
+                break;
             case "TERCEIRIZADO":
                 employee = new Terceirizado();
                 employee.setTipo(TERCEIRIZADO);
-            break;
+                break;
             default: throw new IllegalArgumentException("Tipo inválido");
 
         }
 
         System.out.println("Insira o nome: ");
-         employee.setNome(sc.nextLine());
+        employee.setNome(sc.nextLine());
 
         System.out.println("Insira o salário base: ");
         employee.setSalarioBase(sc.nextInt());
@@ -41,6 +41,6 @@ public class AddEmployee {
             System.out.println("Adicione a adicional variável: ");
             employee.setAdicionalVar(sc.nextInt());
         }
-    return employee;
+        return employee;
     }
 }

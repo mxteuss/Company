@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
+public class connectionFactory {
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/Company";
         String username = "root";

@@ -1,6 +1,7 @@
 package service;
 
 import dao.connectionFactory;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import model.Employee;
 import model.Enum.Tipo;
@@ -30,42 +31,40 @@ public class employeeService {
             stmt.setInt(3, emp.getSalarioBase());
             if (String.valueOf(emp.getTipo()).equalsIgnoreCase("Efetivo")) {
                 stmt.setInt(4, NULL); //Inserindo NULL na tabela
-            }
-            else {
+            } else {
                 stmt.setDouble(4, emp.getAdicionalVar());
             }
             int rows = stmt.executeUpdate();
             stmt.close();
-            log.info("Linhas afetadas: " +  rows);
+            log.info("Linhas afetadas: " + rows);
         } catch (SQLException e) {
             log.error("Erro: " + e.getMessage());
         }
     }
-    public static void delete ()  {
+
+    public static void delete() {
         String sql = "DELETE FROM `Company`.`Employees` WHERE (`id` = ?)";
-        try(Connection conn = connectionFactory.getConnection()){
+        try (Connection conn = connectionFactory.getConnection()) {
             log.info("Insira o ID do funcionário a ser deletado: ");
             Scanner sc = Singleton.getInstance();
             int id = sc.nextInt();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             int rows = stmt.executeUpdate();
-               if (rows > 0) {
-                   log.info("Funcionário com ID '{}' foi deletado. Linhas afetadas: {}", id, rows);
-               } else {
-                   log.warn("Nenhum funcionário com o ID '{}' foi encontrado no banco de dados.", id);
-               }
-    }
-
-        catch (SQLException e){
+            if (rows > 0) {
+                log.info("Funcionário com ID '{}' foi deletado. Linhas afetadas: {}", id, rows);
+            } else {
+                log.warn("Nenhum funcionário com o ID '{}' foi encontrado no banco de dados.", id);
+            }
+        } catch (SQLException e) {
             log.error("Erro ao deletar dados: " + e.getMessage());
         }
     }
 
-    public static void uptade(){
+    public static void uptade() {
         String sql = "UPDATE `Company`.`Employees` SET `type` = ?, `salary` = ?, `variable` = ? WHERE `id` = ?";
         Scanner sc = Singleton.getInstance();
-        try (Connection conn = connectionFactory.getConnection()){
+        try (Connection conn = connectionFactory.getConnection()) {
             log.info("Insira o id do funcionário à ter os dados atualizados: ");
             PreparedStatement stmt = conn.prepareStatement(sql);
             int id = sc.nextInt();
@@ -73,7 +72,7 @@ public class employeeService {
 
             log.info("Insira o tipo contratual do funcionário: ");
             String type = sc.nextLine();
-            if (type.equalsIgnoreCase("Efetivo")){
+            if (type.equalsIgnoreCase("Efetivo")) {
                 stmt.setInt(3, NULL);
                 stmt.setString(1, type.toUpperCase());
                 sc.nextLine();
@@ -83,8 +82,7 @@ public class employeeService {
                 int salary = sc.nextInt();
                 salary += 500;
                 stmt.setInt(2, salary);
-            }
-            else {
+            } else {
                 stmt.setString(1, type.toUpperCase());
                 sc.nextLine();
                 log.info("Insira o salário do funcionário: ");
@@ -97,18 +95,18 @@ public class employeeService {
             }
             int rows = stmt.executeUpdate();
             if (rows > 0) {
-                log.info("Funcionário com ID '{}' foi atualizado. Linhas afetadas: {}",id,  rows);
+                log.info("Funcionário com ID '{}' foi atualizado. Linhas afetadas: {}", id, rows);
             } else {
                 log.warn("Nenhum funcionário com o ID '{}' foi encontrado no banco de dados.", id);
             }
             stmt.close();
 
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             log.error("Erro ao atualizar dados: " + e.getMessage());
         }
     }
-    public static List<Employee> findAll(){
+
+    public static List<Employee> findAll() {
         log.info("Procurando todos  os funcionários");
         String sql = "SELECT * FROM Company.Employees";
         List<Employee> employees = new ArrayList<>();
@@ -116,27 +114,58 @@ public class employeeService {
         try (Connection conn = connectionFactory.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)
-        ){
-
-
-          while (rs.next()){
-
-              employees.add(
-              Employee.builder()
-                      .id(rs.getInt("id"))
-                      .tipo(Tipo.valueOf(rs.getString("type")))
-                      .nome(rs.getString("name"))
-                      .salarioBase(rs.getInt("variable"))
-                      .build());
-          }
-
-
-        }
-        catch (SQLException e){
+        ) {
+            while (rs.next()) {
+                employees.add(
+                        Employee.builder()
+                                .id(rs.getInt("id"))
+                                .tipo(Tipo.valueOf(rs.getString("type")))
+                                .nome(rs.getString("name"))
+                                .salarioBase(rs.getInt("variable"))
+                                .build());
+            }
+        } catch (SQLException e) {
             log.error("Erro na pesquisa dos funcionários: " + e.getMessage());
         }
         return employees;
     }
+
+    @SneakyThrows
+    public static List<Employee> search() {
+        log.info("Procurando funcionário...");
+        Scanner sc = Singleton.getInstance();
+        String sql = "SELECT * FROM Company.Employees WHERE name = ?";
+        List<Employee> employees = new ArrayList<>();
+
+        log.info("Insira o  nome do funcionário: ");
+        String s = sc.nextLine();
+
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, s);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    String tipoStr = rs.getString("type");
+                    Tipo tipo = Tipo.valueOf(tipoStr);
+                    employees.add(
+                            Employee.builder()
+                                    .id(rs.getInt("id"))
+                                    .nome(rs.getString("name"))
+                                    .tipo(tipo)
+                                    .salarioBase(rs.getInt("salary"))
+                                    .adicionalVar(rs.getInt("variable"))
+                                    .build());
+                }
+            } catch (SQLException e) {
+                log.error("Erro na pesquisa dos funcionários: " + e.getMessage());
+            }
+
+            return employees;
+        }
+    }
 }
+
 
 
