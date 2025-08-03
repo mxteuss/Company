@@ -1,62 +1,29 @@
 package model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import model.Enum.Tipo;
+import lombok.AllArgsConstructor;
 
-public abstract class Employee {
-    protected Tipo tipo;
-    protected String nome;
-    protected Integer salarioBase;
-    protected Integer adicionalVar;
+@Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee {
+     Tipo tipo;
+     String nome;
+     Integer salarioBase;
+     Integer adicionalVar;
+     Integer id;
 
-    public Employee() {
-    }
-
-    // construtor pra terceirizado
-    public Employee(Tipo tipo,  String nome, Integer salarioBase, Integer adicionalVar) {
+    public Employee(Integer id, Tipo tipo, String nome, Integer salarioBase) {
         this.tipo = tipo;
         this.nome = nome;
         this.salarioBase = salarioBase;
-        this.adicionalVar = adicionalVar;
     }
 
-    // construtor pra efetivo
-    public Employee(Tipo tipo, Integer salarioBase, String nome) {
-        this.tipo = tipo;
-        this.salarioBase = salarioBase;
-        this.nome = nome;
+    Integer salarioFinal() {
+        return null;
     }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Integer getSalarioBase() {
-        return salarioBase;
-    }
-
-    public void setSalarioBase(Integer salarioBase) {
-        this.salarioBase = salarioBase;
-    }
-
-    public Integer getAdicionalVar() {
-        return adicionalVar;
-    }
-
-    public void setAdicionalVar(Integer adicionalVar) {
-        this.adicionalVar = adicionalVar;
-    }
-
-    protected abstract Integer salarioFinal();
 }

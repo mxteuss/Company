@@ -1,65 +1,63 @@
 package UI;
 
-import java.sql.Connection;
+import java.util.List;
 import java.util.Scanner;
 
-import controller.save;
-import dao.ConnectionFactory;
-import dao.EmployeeDAO;
+import service.employeeService;
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import model.Employee;
 import service.*;
 
-import model.*;
 import util.Singleton;
 
+@Data
+@Log4j2
 public class Menu {
     public static void main(String[] args) {
+        Employee newEmp;
+        log.info("========================");
+        log.info("||         MENU        ||  ");
+        log.info("========================");
 
-        System.out.println("========================");
-        System.out.println("||         MENU        ||  ");
-        System.out.println("========================");
+        log.info("Escolhe a opção desejada: ");
 
-        System.out.println("Escolhe a opção desejada: ");
 
-        System.out.println("1 - Calcular salário dos funcionários da empresa");
-        System.out.println("2 - Adicionar novo funcionário");
-        System.out.println("3 - Visualizar funcionários");
-        System.out.println("4 - Buscar funcionário");
-        System.out.println("5 - Relatório da empresa");
-        System.out.println("6 - Editar dados de funcionário");
+        log.info("1 - Adicionar novo funcionário");
+        log.info("2 - Visualizar funcionários");
+        log.info("3 - Buscar funcionário");
+        log.info("4 - Relatório da empresa");
+        log.info("5 - Editar dados de funcionário");
+        log.info("6 - Excluir dados de funcionário");
         Scanner sc = Singleton.getInstance();
         int opcao = sc.nextInt();
         sc.nextLine();
-        System.out.println("Opção escolhida: " + opcao);
+        log.info("Opção escolhida: " + opcao);
+
         //
         switch (opcao) {
             case 1:
-                CalculateSalary.calculate();
+                newEmp = addEmployee.add();
+                employeeService.salvar(newEmp);
                 break;
 
             case 2:
-                Employee newEmp = AddEmployee.add();
-                save.salvar(newEmp);
-                try (Connection conn = ConnectionFactory.getConnection()){
-                    save.salvarDB(conn, newEmp);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
+                List<Employee> all = employeeService.findAll();
+                log.info(all);
                 break;
-
             case 3:
-                ViewEmployee.view();
+                searchEmployee.search();
                 break;
             case 4:
-                SearchEmployee.search();
+                reportService.loadReport();
                 break;
             case 5:
-                ReportService.loadReport();
-                break;
+                employeeService.uptade();
             case 6:
-                EditEmployee.edit();
+                employeeService.delete();
+                break;
+            default:
+                throw new IndexOutOfBoundsException("Erro.");
         }
-        // O projeto tera novas features à medida que eu for evoluindo
     }
 }

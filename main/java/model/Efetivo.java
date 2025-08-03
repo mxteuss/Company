@@ -1,16 +1,21 @@
 package model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import model.Enum.Tipo;
 
-
+@EqualsAndHashCode(callSuper = false)
+@Data
+@NoArgsConstructor
     public class Efetivo extends Employee {
 
-        public Efetivo(Tipo tipo, String nome, Integer salarioBase) {
-            super(tipo, salarioBase, nome);
+        public Efetivo(Integer id, Tipo tipo, String nome, Integer salarioBase) {
+            super(id, tipo, nome, salarioBase);
 
         }
 
-        public Efetivo() {}
         public double bonusFixo = 500.00;
         @Override
         protected Integer salarioFinal(){
@@ -19,6 +24,7 @@ import model.Enum.Tipo;
         }
         public Integer calcularSalarioFinal(){
             return salarioFinal();
+            // Uso futuro
 
         }
 
