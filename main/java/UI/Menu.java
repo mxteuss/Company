@@ -50,7 +50,7 @@ public class Menu {
                 log.info(search);
                 break;
             case 4:
-                report.loadReport();
+               employeeService.report();
                 break;
             case 5:
                 employeeService.uptade();
@@ -58,7 +58,7 @@ public class Menu {
                 employeeService.delete();
                 break;
             default:
-                throw new IndexOutOfBoundsException("Erro.");
+                throw new IndexOutOfBoundsException("Erro");
         }
     }
 }

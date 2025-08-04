@@ -1,4 +1,0 @@
-Terceirizado;Ycaro;3000;200
-Terceirizado;Mateus;5000;300
-Terceirizado;Julia;2000;100
-Efetivo;Richard;5000;

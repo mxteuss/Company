@@ -165,6 +165,35 @@ public class employeeService {
             return employees;
         }
     }
+
+    public static List<Integer> report(){
+        List<Integer> avg = new ArrayList<>();
+        String sql = "SELECT salary, variable FROM `Company`.`Employees`";
+        int sum = 0;
+        int i = 0;
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+
+            try(ResultSet rs = ps.executeQuery()){
+            while (rs.next()){
+                avg.add(rs.getInt("salary"));
+                avg.add(rs.getInt("variable"));
+
+                for (int total : avg){
+                    sum += total;
+                }
+                i = sum / avg.size();
+            }
+            }
+        }
+        catch (SQLException e){
+            log.error("Erro ao gerar relatórios: " + e.getMessage());
+        }
+        log.info("Total: " + sum);
+        log.info("Média: " + i);
+
+        return avg;
+    }
 }
 
 
