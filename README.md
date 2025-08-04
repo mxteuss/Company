@@ -10,4 +10,3 @@ Este projeto implementa um sistema de gerenciamento de funcionários via CLI, in
 - Edição de dados do funcionário.
 
 
-[Demonstração](https://www.youtube.com/watch?v=zYNisM-Yi3w)
