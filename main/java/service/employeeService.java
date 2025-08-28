@@ -16,7 +16,7 @@ import static java.sql.Types.NULL;
 
 @Log4j2
 public class employeeService {
-    private final Connection conn;
+    private static Connection conn = null;
 
     public employeeService(Connection conn) {
         this.conn = conn;
@@ -148,6 +148,7 @@ public class employeeService {
 
                 while (rs.next()) {
                     String tipoStr = rs.getString("type");
+
                     Tipo tipo = Tipo.valueOf(tipoStr);
                     employees.add(
                             Employee.builder()
@@ -194,7 +195,47 @@ public class employeeService {
 
         return avg;
     }
-}
+
+    @SneakyThrows
+    public static void typeScroll() {
+        Employee employee = new Employee();
+        String sql = "SELECT * FROM Company.Employees";
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = ps.executeQuery(sql)) {
+
+                log.info("Last row: " + rs.last());
+                log.info("Row number: " + rs.getRow());
+                  String tipoStr = rs.getString("type");
+                 Tipo tipo = Tipo.valueOf(tipoStr);
+                 log.info(Employee.builder()
+                    .id(rs.getInt("id"))
+                    .tipo(tipo)
+                    .nome(rs.getString("name"))
+                    .salarioBase(rs.getInt("salary"))
+                    .adicionalVar(rs.getInt("variable"))
+                    .build());
+                log.info("First row: " + rs.first());
+                log.info("Row number: " + rs.getRow());
+
+                log.info(Employee.builder()
+                        .id(rs.getInt("id"))
+                        .tipo(tipo)
+                        .nome(rs.getString("name"))
+                        .salarioBase(rs.getInt("salary"))
+                        .adicionalVar(rs.getInt("variable"))
+                         .build());
+            }
+
+        catch (SQLException e) {
+            log.error("Erro:" + e.getMessage());
+        }
+        finally {
+            conn.close();
+        }
+    }
+    }
+
 
 
 
