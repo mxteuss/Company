@@ -111,11 +111,11 @@ public class employeeService {
         }
     }
 
-    public static String findAll() {
+    public static StringBuilder findAll() {
         log.info("Procurando todos  os funcionários");
         String sql = "SELECT * FROM Company.Employees";
         List<Employee> employees = new ArrayList<>();
-
+        String string = null;
         try (Connection conn = connectionFactory.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)
@@ -126,22 +126,41 @@ public class employeeService {
                                 .id(rs.getInt("id"))
                                 .tipo(Tipo.valueOf(rs.getString("type")))
                                 .nome(rs.getString("name"))
-                                .salarioBase(rs.getInt("variable"))
+                                .salarioBase(rs.getInt("salary"))
+                                .adicionalVar(rs.getInt("variable"))
                                 .build());
             }
+
+
         } catch (SQLException e) {
             log.error("Erro na pesquisa dos funcionários: " + e.getMessage());
         }
-        String string = null;
+        StringBuilder stringBuilder = new StringBuilder();
         for (Employee employee : employees) {
-            string = new StringBuilder().append("Id: ").append(employee.getId())
-                    .append("Nome: ").append(employee.getNome())
-                    .append("Tipo contratual: ").append(employee.getTipo()).
-                    append("Salário base: ").append(employee.getSalarioBase()).
-                    append("Adicional variável: ").append(employee.getAdicionalVar() != null ? employee.getAdicionalVar() : "Não informado").toString();
+            stringBuilder.append("Id: ");
+            stringBuilder.append(employee.getId());
+            stringBuilder.append("\n");
+            stringBuilder.append("Nome: ");
+            stringBuilder.append(employee.getNome());
+            stringBuilder.append("\n");
+            stringBuilder.append("Tipo contratual: ");
+            stringBuilder.append(employee.getTipo());
+            stringBuilder.append("\n");
+
+            stringBuilder.append("Salário base: ");
+            stringBuilder.append(employee.getSalarioBase());
+            stringBuilder.append("\n");
+            stringBuilder.append("Adicional variável: ");
+            stringBuilder.append(employee.getAdicionalVar() != null ? employee.getAdicionalVar() : "Não informado");
+            stringBuilder.append("\n");
+            stringBuilder.append("------------------------");
+            stringBuilder.append("\n");
+
+
+
 
         }
-        return string;
+        return stringBuilder;
     }
 
     @SneakyThrows
