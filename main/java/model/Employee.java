@@ -1,23 +1,24 @@
 package model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import model.Enum.Tipo;
-import lombok.AllArgsConstructor;
 
 @Data
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Employee {
-     Tipo tipo;
-     String nome;
-     Integer salarioBase;
-     Integer adicionalVar;
-     Integer id;
+     protected Tipo tipo;
+     protected String nome;
+     protected Integer salarioBase;
+     protected Integer adicionalVar;
+     protected Integer id;
 
     public Employee(Integer id, Tipo tipo, String nome, Integer salarioBase) {
+        this.id = id;
         this.tipo = tipo;
         this.nome = nome;
         this.salarioBase = salarioBase;

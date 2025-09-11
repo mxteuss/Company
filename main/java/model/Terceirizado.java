@@ -15,7 +15,6 @@ import lombok.experimental.SuperBuilder;
         protected Integer salarioFinal(){
             return salarioBase + adicionalVar;
         }
-
         public Integer calcularSalarioFinal(){
             return salarioFinal();
         }

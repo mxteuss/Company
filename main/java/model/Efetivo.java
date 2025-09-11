@@ -13,7 +13,6 @@ import model.Enum.Tipo;
 
         public Efetivo(Integer id, Tipo tipo, String nome, Integer salarioBase) {
             super(id, tipo, nome, salarioBase);
-
         }
 
         public double bonusFixo = 500.00;
