@@ -42,11 +42,11 @@ public class Menu {
                 break;
 
             case 2:
-                List<Employee> all = employeeService.findAll();
+                String all = employeeService.findAll();
                 log.info(all);
                 break;
             case 3:
-                List<Employee> search = employeeService.search();
+                String search = employeeService.search();
                 log.info(search);
                 break;
             case 4:
