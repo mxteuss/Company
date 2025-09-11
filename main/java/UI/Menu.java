@@ -17,7 +17,7 @@ public class Menu {
     public static void main(String[] args) {
         Employee newEmp;
         log.info("========================");
-        log.info("||         MENU        ||  ");
+        log.info("||         MENU        ||");
         log.info("========================");
 
         log.info("Escolhe a opção desejada: ");
@@ -54,11 +54,12 @@ public class Menu {
                 break;
             case 5:
                 employeeService.uptade();
+                break;
             case 6:
                 employeeService.delete();
                 break;
             default:
-                throw new IndexOutOfBoundsException("Erro");
+                log.error("Erro");
         }
     }
 }
