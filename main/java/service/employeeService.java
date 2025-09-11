@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import model.Employee;
 import model.Enum.Tipo;
+import org.apache.logging.log4j.core.appender.mom.jeromq.JeroMqManager;
 import util.Singleton;
 
 import java.sql.*;
@@ -69,9 +70,12 @@ public class employeeService {
             PreparedStatement stmt = conn.prepareStatement(sql);
             int id = sc.nextInt();
             stmt.setInt(4, id);
-
+            sc.nextLine();
             log.info("Insira o tipo contratual do funcionário: ");
+
             String type = sc.nextLine();
+
+
             if (type.equalsIgnoreCase("Efetivo")) {
                 stmt.setInt(3, NULL);
                 stmt.setString(1, type.toUpperCase());
@@ -82,7 +86,8 @@ public class employeeService {
                 int salary = sc.nextInt();
                 salary += 500;
                 stmt.setInt(2, salary);
-            } else {
+            }
+            if (type.equalsIgnoreCase("Terceirizado")){
                 stmt.setString(1, type.toUpperCase());
                 sc.nextLine();
                 log.info("Insira o salário do funcionário: ");
@@ -106,7 +111,7 @@ public class employeeService {
         }
     }
 
-    public static List<Employee> findAll() {
+    public static String findAll() {
         log.info("Procurando todos  os funcionários");
         String sql = "SELECT * FROM Company.Employees";
         List<Employee> employees = new ArrayList<>();
@@ -127,11 +132,20 @@ public class employeeService {
         } catch (SQLException e) {
             log.error("Erro na pesquisa dos funcionários: " + e.getMessage());
         }
-        return employees;
+        String string = null;
+        for (Employee employee : employees) {
+            string = new StringBuilder().append("Id: ").append(employee.getId())
+                    .append("Nome: ").append(employee.getNome())
+                    .append("Tipo contratual: ").append(employee.getTipo()).
+                    append("Salário base: ").append(employee.getSalarioBase()).
+                    append("Adicional variável: ").append(employee.getAdicionalVar() != null ? employee.getAdicionalVar() : "Não informado").toString();
+
+        }
+        return string;
     }
 
     @SneakyThrows
-    public static List<Employee> search() {
+    public static String search() {
         log.info("Procurando funcionário...");
         Scanner sc = Singleton.getInstance();
         String sql = "SELECT * FROM Company.Employees WHERE name = ?";
@@ -158,13 +172,25 @@ public class employeeService {
                                     .salarioBase(rs.getInt("salary"))
                                     .adicionalVar(rs.getInt("variable"))
                                     .build());
+
                 }
+
             } catch (SQLException e) {
                 log.error("Erro na pesquisa dos funcionários: " + e.getMessage());
             }
+            String string = null;
+            for (Employee employee : employees) {
+                string = new StringBuilder().append("Id: ").append(employee.getId())
+                        .append("Nome: ").append(employee.getNome())
+                        .append("Tipo contratual: ").append(employee.getTipo()).
+                        append("Salário base: ").append(employee.getSalarioBase()).
+                        append("Adicional variável: ").append(employee.getAdicionalVar() != null ? employee.getAdicionalVar() : "Não informado").toString();
 
-            return employees;
+            }
+            return string;
         }
+
+
     }
 
     public static List<Integer> report(){
