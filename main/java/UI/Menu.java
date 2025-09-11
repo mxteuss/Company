@@ -42,7 +42,7 @@ public class Menu {
                 break;
 
             case 2:
-                String all = employeeService.findAll();
+                StringBuilder all = employeeService.findAll();
                 log.info(all);
                 break;
             case 3:
