@@ -6,4 +6,11 @@
       <inspection_tool class="CommitNamingConvention" enabled="true" level="WARNING" enabled_by_default="true" />
     </profile>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src" vcs="Git" />
+  </component>
+>>>>>>> 51299fb (refactor:  Alterando branch)
 </project>
