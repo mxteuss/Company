@@ -1,5 +1,7 @@
 package model;
 
+import com.company.employees.model.Employee;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -9,22 +11,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@Builder
     public class Terceirizado extends Employee {
 
-        @Override
-        protected Integer salarioFinal(){
-            return salarioBase + adicionalVar;
-        }
-        public Integer calcularSalarioFinal(){
-            return salarioFinal();
-        }
-
-        @Override
-        public String toString() {
-            return tipo.getDesc() +
-                    ";" + nome +
-                    ";" + salarioBase +
-                    ";" + adicionalVar;
-        }
     }
 

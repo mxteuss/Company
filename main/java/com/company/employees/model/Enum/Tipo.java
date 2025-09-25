@@ -1,4 +1,4 @@
-package model.Enum;
+package com.company.employees.model.Enum;
 
 public enum Tipo {
     EFETIVO("Efetivo"),

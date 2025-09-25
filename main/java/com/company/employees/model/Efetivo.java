@@ -1,24 +1,26 @@
-package model;
+package com.company.employees.model;
 
+import com.company.employees.model.Enum.Tipo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import model.Enum.Tipo;
+
 
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
     public class Efetivo extends Employee {
 
-        public Efetivo(Integer id, Tipo tipo, String nome, Integer salarioBase) {
-            super(id, tipo, nome, salarioBase);
+        public Efetivo(Long id, Tipo tipo, String nome, Integer salario) {
+            super(id, tipo, nome, salario);
         }
 
-        public double bonusFixo = 500.00;
-        @Override
+
+    public double bonusFixo = 500.00;
+
         protected Integer salarioFinal(){
-            return (int) (salarioBase + bonusFixo);
+            return (int) (salario + bonusFixo);
 
         }
         public Integer calcularSalarioFinal(){
@@ -27,13 +29,6 @@ import model.Enum.Tipo;
 
         }
 
-        @Override
-        public String toString() {
-            return tipo.getDesc() +
-                    ";" + nome +
-                    ";" + salarioBase +
-                    ';';
-        }
     }
 
 

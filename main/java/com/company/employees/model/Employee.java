@@ -1,30 +1,38 @@
-package model;
 
+package com.company.employees.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import model.Enum.Tipo;
+import com.company.employees.model.Enum.Tipo;
 
 @Data
-@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Entity
+@Builder
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
      protected Tipo tipo;
      protected String nome;
-     protected Integer salarioBase;
-     protected Integer adicionalVar;
-     protected Integer id;
+     protected Integer salario;
+     protected Integer adicional;
 
-    public Employee(Integer id, Tipo tipo, String nome, Integer salarioBase) {
+
+    public Employee(Long id, Tipo tipo, String nome, Integer salario) {
         this.id = id;
         this.tipo = tipo;
         this.nome = nome;
-        this.salarioBase = salarioBase;
+        this.salario = salario;
     }
+
 
     Integer salarioFinal() {
         return null;
     }
+
 }
