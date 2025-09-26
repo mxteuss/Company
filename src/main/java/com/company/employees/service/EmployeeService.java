@@ -1,6 +1,7 @@
 package com.company.employees.service;
 
 
+import com.company.employees.model.Enum.Tipo;
 import com.company.employees.repository.EmployeeRepository;
 import lombok.extern.log4j.Log4j2;
 import com.company.employees.model.Employee;
@@ -22,7 +23,11 @@ public class EmployeeService {
     }
 
     public Employee salvar(Employee emp) {
+        if(emp.getTipo().equals(Tipo.Efetivo)){
+            emp.setAdicional(null);
+        }
         return repository.save(emp);
+
     }
 
     public String delete(Employee emp) {
@@ -33,7 +38,7 @@ public class EmployeeService {
     public Employee uptade(Employee emp) {
         Employee novoEmp = new Employee();
         emp = novoEmp;
-        if (emp.getTipo().getDesc().equalsIgnoreCase("Efetivo")){
+        if (emp.getTipo().equals(Tipo.Efetivo)){
             emp.setAdicional(null);
         }
         return repository.save(novoEmp);
