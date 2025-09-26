@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #  Employee Manager
 
 Employee Manager é um sistema de gerenciamento de funcionários via **linha de comando (CLI)**.  
