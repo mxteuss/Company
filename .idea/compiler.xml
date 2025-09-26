@@ -2,25 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
-<<<<<<< HEAD
-    </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="funcionarios" target="25" />
-    </bytecodeTargetLevel>
-=======
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="funcionarios" />
+        <module name="employees" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="funcionarios" options="-parameters" />
+      <module name="employees" options="-parameters" />
     </option>
->>>>>>> 51299fb (refactor:  Alterando branch)
   </component>
 </project>

@@ -1,5 +1,8 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
+# manter apenas os out de src específicos se necessário
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -25,5 +28,31 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+### Gradle ###
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### OS Files ###
 .DS_Store
+Thumbs.db
+
+### Logs ###
+*.log
+
+### Others ###
+*.class
+*.jar
+*.war
+*.ear
