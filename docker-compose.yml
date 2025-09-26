@@ -5,6 +5,9 @@ services:
     container_name: empresa
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Company
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
