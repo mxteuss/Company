@@ -4,9 +4,11 @@ package com.company.employees.service;
 import com.company.employees.repository.EmployeeRepository;
 import lombok.extern.log4j.Log4j2;
 import com.company.employees.model.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -38,8 +40,10 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> findAll() {
-    return repository.findAll();
+    public Page<Employee> findAll(int pageNO, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNO, pageSize);
+        return repository.findAll(pageable);
+
     }
 
     public Optional<Employee> findById(Employee emp) {
