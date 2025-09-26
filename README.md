@@ -30,5 +30,5 @@ Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regr
 
 1. **Clone o repositório**  
    ```bash
-   git clone https://github.com/seu-usuario/employee-manager.git
+   git clone https://github.com/mmxteuss/employee-manager.git
    cd employee-manager
