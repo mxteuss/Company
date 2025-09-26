@@ -1,17 +1,17 @@
 package com.company.employees.model;
 
-import lombok.Builder;
+import com.company.employees.model.Enum.Tipo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@SuperBuilder
 @NoArgsConstructor
-@Builder
     public class Terceirizado extends Employee {
 
+    public Terceirizado(Long id, Tipo tipo, String nome, Integer salario, Integer adicional) {
+        super(id, tipo, nome, salario, adicional);
     }
+}
 
