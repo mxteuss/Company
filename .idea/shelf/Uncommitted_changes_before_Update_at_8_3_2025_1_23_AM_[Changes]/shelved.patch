@@ -1,0 +1,174 @@
+Index: src/main/java/dao/ConnectionFactory.java
+===================================================================
+diff --git a/src/main/java/dao/ConnectionFactory.java b/src/main/java/dao/connectionFactory.java
+rename from src/main/java/dao/ConnectionFactory.java
+rename to src/main/java/dao/connectionFactory.java
+--- a/src/main/java/dao/ConnectionFactory.java	(revision 14fd5e5dd4e1082fafbc75512c72d2fdddc15692)
++++ b/src/main/java/dao/connectionFactory.java	(date 1753997192273)
+@@ -4,7 +4,7 @@
+ import java.sql.DriverManager;
+ import java.sql.SQLException;
+ 
+-public class ConnectionFactory {
++public class connectionFactory {
+     public static Connection getConnection() throws SQLException {
+         String url = "jdbc:mysql://localhost:3306/Company";
+         String username = "root";
+Index: src/main/java/service/ReportService.java
+===================================================================
+diff --git a/src/main/java/service/ReportService.java b/src/main/java/service/reportService.java
+rename from src/main/java/service/ReportService.java
+rename to src/main/java/service/reportService.java
+--- a/src/main/java/service/ReportService.java	(revision 14fd5e5dd4e1082fafbc75512c72d2fdddc15692)
++++ b/src/main/java/service/reportService.java	(date 1754106945425)
+@@ -1,5 +1,6 @@
+ package service;
+ 
++import lombok.extern.log4j.Log4j2;
+ import model.Employee;
+ 
+ import java.io.IOException;
+@@ -9,7 +10,8 @@
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+-public class ReportService {
++@Log4j2
++public class reportService {
+     public static Employee loadReport(){
+         List<String> partTime = new ArrayList<>();
+         List<String> fullTime = new ArrayList<>();
+@@ -37,10 +39,10 @@
+                 mediaS = total / (fullTime.size() + partTime.size());
+ 
+         }
+-        System.out.println("Quantidade de funcionários terceirizados: " + partTime.size());
+-            System.out.println("Quantidade de funcionários efetivados: " + fullTime.size());
+-            System.out.println("Total de salário: " + total);
+-            System.out.println("Média de salário: " + mediaS);
++        log.info("Quantidade de funcionários terceirizados: " + partTime.size());
++            log.info("Quantidade de funcionários efetivados: " + fullTime.size());
++            log.info("Total de salário: " + total);
++            log.info("Média de salário: " + mediaS);
+ 
+         }
+         catch (IOException e){
+Index: src/main/java/service/AddEmployee.java
+===================================================================
+diff --git a/src/main/java/service/AddEmployee.java b/src/main/java/service/addEmployee.java
+rename from src/main/java/service/AddEmployee.java
+rename to src/main/java/service/addEmployee.java
+--- a/src/main/java/service/AddEmployee.java	(revision 14fd5e5dd4e1082fafbc75512c72d2fdddc15692)
++++ b/src/main/java/service/addEmployee.java	(date 1754106945450)
+@@ -1,22 +1,22 @@
+ package service;
+ 
++import lombok.extern.log4j.Log4j2;
+ import model.Efetivo;
+ import model.Employee;
+ import model.Terceirizado;
+ import util.Singleton;
+-
+-
+ import java.util.Scanner;
+ 
+ import static model.Enum.Tipo.EFETIVO;
+ import static model.Enum.Tipo.TERCEIRIZADO;
+ 
+-public class AddEmployee {
++@Log4j2
++public class addEmployee {
+     public static Employee add() {
+         Employee employee;
+         Scanner sc = Singleton.getInstance();
+ 
+-        System.out.println("Insira o  tipo  de contrato: ");
++        log.info("Insira o  tipo  de contrato: ");
+         String tipo = sc.nextLine();
+         switch (tipo.toUpperCase()){
+             case "EFETIVO":
+@@ -31,14 +31,14 @@
+ 
+         }
+ 
+-        System.out.println("Insira o nome: ");
++        log.info("Insira o nome: ");
+          employee.setNome(sc.nextLine());
+ 
+-        System.out.println("Insira o salário base: ");
++        log.info("Insira o salário base: ");
+         employee.setSalarioBase(sc.nextInt());
+ 
+         if (employee.getTipo().equals(TERCEIRIZADO)){
+-            System.out.println("Adicione a adicional variável: ");
++            log.info("Adicione a adicional variável: ");
+             employee.setAdicionalVar(sc.nextInt());
+         }
+     return employee;
+Index: src/main/java/service/SearchEmployee.java
+===================================================================
+diff --git a/src/main/java/service/SearchEmployee.java b/src/main/java/service/searchEmployee.java
+rename from src/main/java/service/SearchEmployee.java
+rename to src/main/java/service/searchEmployee.java
+--- a/src/main/java/service/SearchEmployee.java	(revision 14fd5e5dd4e1082fafbc75512c72d2fdddc15692)
++++ b/src/main/java/service/searchEmployee.java	(date 1754106945442)
+@@ -1,6 +1,7 @@
+ package service;
+ 
+ 
++import lombok.extern.log4j.Log4j2;
+ import model.Efetivo;
+ import model.Employee;
+ import model.Enum.Tipo;
+@@ -14,12 +15,12 @@
+ import java.nio.file.Path;
+ import java.nio.file.Paths;
+ import java.util.Scanner;
+-
+-public class SearchEmployee {
++@Log4j2
++public class searchEmployee {
+     public static Employee search(){
+         Path caminho = Paths.get("src/data/funcionarios.txt");
+         Scanner sc = Singleton.getInstance();
+-        System.out.println("Informe o nome do funcionário para busca: ");
++        log.info("Informe o nome do funcionário para busca: ");
+         String nomeStr = sc.nextLine();
+         String linha;
+         Employee employeeFounded = null;
+@@ -29,12 +30,21 @@
+                 String [] partes = linha.split(";");
+                 if (partes[1].equalsIgnoreCase(nomeStr)){
+                     if (partes[0].equals(Tipo.EFETIVO.getDesc())){
+-                        employeeFounded = new Efetivo(Tipo.EFETIVO, partes[1], Integer.parseInt(partes[2]));
+-                        System.out.println(employeeFounded);
++                        employeeFounded = Efetivo.builder()
++                                .tipo(Tipo.EFETIVO)
++                                .nome(partes[1])
++                                .salarioBase(Integer.parseInt(partes[2]))
++                                .build();
++                        log.info(employeeFounded);
+ 
+                     } else if (partes[0].equals(Tipo.TERCEIRIZADO.getDesc())) {
+-                        employeeFounded = new Terceirizado(Tipo.TERCEIRIZADO, partes[1], Integer.parseInt(partes[2]), Integer.parseInt(partes[3]));
+-                        System.out.println(employeeFounded);
++                        employeeFounded = Terceirizado.builder()
++                                .tipo(Tipo.TERCEIRIZADO)
++                                .nome(partes[1])
++                                .salarioBase(Integer.parseInt(partes[2]))
++                                .adicionalVar(Integer.parseInt(partes[3]))
++                                .build();
++                       log.info(employeeFounded);
+                     }
+                 }
+             }
+@@ -43,8 +53,7 @@
+             e.printStackTrace();
+         }
+         finally {
+-            System.out.println("Busca encerrada.");
+-            sc.close();
++           log.info("Busca encerrada.");
+         }
+         return employeeFounded;
+         }

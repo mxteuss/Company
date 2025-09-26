@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #  Employee Manager
 
 Employee Manager é um sistema de gerenciamento de funcionários via **linha de comando (CLI)**.  
@@ -32,3 +33,15 @@ Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regr
    ```bash
    git clone https://github.com/mmxteuss/employee-manager.git
    cd employee-manager
+=======
+## Employee Manager
+This project implements an employee management system via CLI, integrated with Maven to manage dependencies and Docker for the database connection. The system differentiates between full-time employees and part-time, apllying specific salary rules for each type.
+
+## Features
+- Calculate the monthly salary for full-time and part-time employees.
+- Read employees' data from database
+- Add new employees to the database
+- View all employees registered in the database
+- Search employees by name
+- Edit employees' data
+>>>>>>> 120d638 (refactor:  Alterando branch)
