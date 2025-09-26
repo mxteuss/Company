@@ -30,9 +30,9 @@ public class EmployeeService {
 
     }
 
-    public String delete(Employee emp) {
-        repository.delete(emp);
-        return "Usuário: " + emp.getId() + "deletado";
+    public String deleteById(Long id) {
+        repository.deleteById(id);
+        return "Usuário: " + id + "deletado";
     }
 
     public Employee uptade(Employee emp) {
