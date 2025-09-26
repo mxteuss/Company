@@ -4,9 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Tipo {
-    EFETIVO("Efetivo"),
-    TERCEIRIZADO("Terceirizado");
-
+    Efetivo("Efetivo"),
+    Terceirizado("Terceirizado");
     private final String desc;
 
     Tipo(String desc){
