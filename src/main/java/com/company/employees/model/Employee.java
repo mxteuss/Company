@@ -15,6 +15,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    @Enumerated(EnumType.STRING)
      protected Tipo tipo;
      protected String nome;
      protected Integer salario;
