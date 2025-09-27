@@ -13,7 +13,7 @@ import com.company.employees.model.Enum.Tipo;
 @Table(name = "Employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @Enumerated(EnumType.STRING)
      protected Tipo tipo;
