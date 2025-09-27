@@ -1,7 +1,7 @@
 
 #  Employee Manager
 
-Employee Manager é um sistema de gerenciamento de funcionários via **linha de comando (CLI)**.  
+Employee Manager é uma API RESTful para gerenciamento de funcionários utilizando Spring Boot
 O projeto é integrado com **Maven** para gerenciamento de dependências e utiliza **Docker** para configurar o banco de dados.  
 
 Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regras específicas de salário.
@@ -19,7 +19,8 @@ Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regr
 ---
 
 ## 🛠️ Tecnologias utilizadas
-- **Java 17+**  
+- **Java 25**
+- **Spring boot**
 - **Maven**  
 - **Docker**
 - **MySQL**
