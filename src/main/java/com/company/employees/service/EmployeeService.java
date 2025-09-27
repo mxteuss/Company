@@ -10,13 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
 @Service
 public class EmployeeService {
 
-    public EmployeeRepository repository;
+    public static EmployeeRepository repository;
 
     public EmployeeService(EmployeeRepository repository) {
         this.repository = repository;
@@ -57,9 +58,21 @@ public class EmployeeService {
     }
 
 
-//    public static List<Integer> report() {
-//    Deixado de lado por enquanto
-//    }
+    public String report() {
+        List<Employee> employees = repository.findAll();
+
+    double sum = 0;
+    for (Employee e : employees) {
+        if (e.getAdicional() == null) {
+            sum += e.getSalario();
+        } else {
+            sum += (e.getSalario() + e.getAdicional());
+        }
+    }
+    double media = sum / employees.size();
+    return "Total: " + sum
+            + "\nMédia: " + media;
+    }
 }
 
 
