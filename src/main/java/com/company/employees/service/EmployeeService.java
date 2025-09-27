@@ -51,9 +51,11 @@ public class EmployeeService {
 
     }
 
-    public Optional<Employee> findById(Employee emp) {
-    return repository.findById(emp.getId());
+    public Optional<Employee> findById(Long id) {
+    return Optional.ofNullable(repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
     }
+
 
 //    public static List<Integer> report() {
 //    Deixado de lado por enquanto
