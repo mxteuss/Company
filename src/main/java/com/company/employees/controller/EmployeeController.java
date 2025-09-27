@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RestController
 @AllArgsConstructor
@@ -19,6 +21,12 @@ public class EmployeeController {
     public ResponseEntity<Page<Employee>> findAll(){
         Page<Employee> employees = employeeService.findAll(0, 10);
         return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/employees/{id}")
+    public Optional<Employee> findById(@PathVariable Long id){
+        return Optional.ofNullable(employeeService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
     }
 
     @PostMapping("/employees")
@@ -37,4 +45,5 @@ public class EmployeeController {
  }
 
     }
+
 }
