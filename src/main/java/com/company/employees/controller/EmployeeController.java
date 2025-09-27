@@ -36,14 +36,18 @@ public class EmployeeController {
 
     @PostMapping("/employees/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
- try {
+    try {
      employeeService.deleteById(id);
      return ResponseEntity.noContent().build();
- }
- catch (Exception e){
+    }
+    catch (Exception e){
      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar id:" + e.getMessage());
- }
+    }
+    }
 
+    @GetMapping("/employees/report")
+    public ResponseEntity<String> report(){
+        return ResponseEntity.ok(employeeService.report());
     }
 
 }
