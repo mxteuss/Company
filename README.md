@@ -1,8 +1,8 @@
 
 #  Employee Manager
 
-Employee Manager é uma API RESTful para gerenciamento de funcionários utilizando Spring Boot
-O projeto é integrado com **Maven** para gerenciamento de dependências e utiliza **Docker** para configurar o banco de dados.  
+Employee Manager é uma API RESTful para gerenciamento de funcionários utilizando **Spring Boot**
+O projeto é integrado com Maven para gerenciamento de dependências e utiliza Docker para configurar o banco de dados.  
 
 Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regras específicas de salário.
 
