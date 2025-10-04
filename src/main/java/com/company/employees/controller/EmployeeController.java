@@ -1,6 +1,6 @@
 package com.company.employees.controller;
 
-import com.company.employees.model.Employee;
+import com.company.employees.domain.model.Employee;
 import com.company.employees.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
