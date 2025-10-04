@@ -1,26 +1,25 @@
 
-package com.company.employees.model;
+package com.company.employees.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.company.employees.model.Enum.Tipo;
+import com.company.employees.domain.model.Enum.Tipo;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "Employee")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
     @Enumerated(EnumType.STRING)
      protected Tipo tipo;
      protected String nome;
      protected Integer salario;
      protected Integer adicional;
-
 
     public Employee(Long id, Tipo tipo, String nome, Integer salario) {
         this.id = id;
