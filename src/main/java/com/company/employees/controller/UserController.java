@@ -1,8 +1,10 @@
 package com.company.employees.controller;
 
 import com.company.employees.domain.model.DTO.AuthenticationDTO;
+import com.company.employees.domain.model.DTO.LoginDTO;
 import com.company.employees.domain.model.DTO.RegisterDTO;
 import com.company.employees.domain.model.User;
+import com.company.employees.infra.security.TokenService;
 import com.company.employees.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class UserController {
     @Autowired
     public AuthenticationManager authenticationManager;
 
+    private TokenService tokenService;
+
     @Autowired
     public UserRepository userRepository;
 
@@ -29,7 +33,8 @@ public class UserController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginDTO(token));
     }
 
     @PostMapping("/register")
