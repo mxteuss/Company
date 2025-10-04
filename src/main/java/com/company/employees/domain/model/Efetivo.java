@@ -1,6 +1,6 @@
-package com.company.employees.model;
+package com.company.employees.domain.model;
 
-import com.company.employees.model.Enum.Tipo;
+import com.company.employees.domain.model.Enum.Tipo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
