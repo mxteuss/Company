@@ -1,10 +1,10 @@
 package com.company.employees.service;
 
 
-import com.company.employees.model.Enum.Tipo;
+import com.company.employees.domain.model.Enum.Tipo;
+import com.company.employees.domain.model.Employee;
 import com.company.employees.repository.EmployeeRepository;
-import lombok.extern.log4j.Log4j2;
-import com.company.employees.model.Employee;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Log4j2
+
 @Service
+@AllArgsConstructor
 public class EmployeeService {
 
     public static EmployeeRepository repository;
