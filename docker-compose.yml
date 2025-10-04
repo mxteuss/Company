@@ -1,17 +1,23 @@
-version: '2.4'
+version: '3.8'
+
 services:
   db:
-    image: mysql
+    image: postgres:15
     container_name: empresa
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Company
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: Company
     ports:
-      - "3306:3306"
+      - "5433:5432"
     volumes:
-      - funcionario:/var/lib/mysql
+      - funcionario:/var/lib/postgresql/data
+    networks:
+      - employeemanager_net
 
 volumes:
   funcionario:
+
+networks:
+  employeemanager_net:
+    driver: bridge
