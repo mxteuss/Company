@@ -1,4 +1,6 @@
 package com.company.employees.domain.model.DTO;
 
-public record LoginDTO(String token) {
+import jakarta.validation.constraints.NotNull;
+
+public record LoginDTO(@NotNull String token) {
 }
