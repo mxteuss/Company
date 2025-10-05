@@ -1,6 +1,12 @@
 package com.company.employees.domain.model.DTO;
 
 import com.company.employees.domain.model.Enum.Roles;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
-public record RegisterDTO(String login, String password, Roles role) {
+@Valid
+@NotNull
+public record RegisterDTO(@NotNull String login,
+                          @NotNull String password,
+                          @NotNull @Valid Roles role) {
 }
