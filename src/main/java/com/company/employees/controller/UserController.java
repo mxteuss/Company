@@ -8,15 +8,11 @@ import com.company.employees.infra.security.TokenService;
 import com.company.employees.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,7 +27,7 @@ public class UserController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        var token = tokenService.generateAccessToken((User) auth.getPrincipal());
         return ResponseEntity.ok(new LoginDTO(token));
     }
 
@@ -45,5 +41,10 @@ public class UserController {
 
         userRepository.save(newUser);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity refresh(User user){
+      return ResponseEntity.ok(tokenService.generateRefreshToken(user));
     }
 }
