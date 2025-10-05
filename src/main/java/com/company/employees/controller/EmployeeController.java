@@ -13,28 +13,29 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/employees")
 public class EmployeeController {
 
     public EmployeeService employeeService;
 
-    @GetMapping("/employees")
+    @GetMapping("/list")
     public ResponseEntity<Page<Employee>> findAll(){
         Page<Employee> employees = employeeService.findAll(0, 10);
         return ResponseEntity.ok(employees);
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/search/{id}")
     public Optional<Employee> findById(@PathVariable Long id){
         return Optional.ofNullable(employeeService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
     }
 
-    @PostMapping("/employees")
+    @PostMapping()
     public Employee save(@RequestBody Employee employee){
         return employeeService.salvar(employee);
     }
 
-    @PostMapping("/employees/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
     try {
      employeeService.deleteById(id);
@@ -45,7 +46,7 @@ public class EmployeeController {
     }
     }
 
-    @GetMapping("/employees/report")
+    @GetMapping("/report")
     public ResponseEntity<String> report(){
         return ResponseEntity.ok(employeeService.report());
     }
