@@ -30,7 +30,7 @@ public class EmployeeController {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public Employee save(@RequestBody Employee employee){
         return employeeService.salvar(employee);
     }
