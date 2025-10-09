@@ -1,6 +1,8 @@
 package com.company.employees.domain.model;
 
 import com.company.employees.domain.model.Enum.Tipo;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
+
     public class Efetivo extends Employee {
 
         public Efetivo(Long id, Tipo tipo, String nome, Integer salario) {

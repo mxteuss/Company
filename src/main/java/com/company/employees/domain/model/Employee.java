@@ -11,6 +11,7 @@ import com.company.employees.domain.model.Enum.Tipo;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "employees")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
