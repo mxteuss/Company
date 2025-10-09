@@ -4,11 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.company.employees.domain.model.User;
-import com.company.employees.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.company.employees.domain.model.User;import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,11 +12,8 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class TokenService {
-
-
     @Value("${api.security.token.secret}")
     private String secret;
-    private UserRepository userRepository;
 
     public String generateAccessToken(User user){
         try{
@@ -44,14 +37,18 @@ public class TokenService {
                 .withExpiresAt(Instant.now().plus(7, ChronoUnit.DAYS))
                 .sign(Algorithm.HMAC256(secret));
     }
-    public UserDetails validateToken(String token){
+    public String validateToken(String token){
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            DecodedJWT jwt = JWT.require(algorithm)
+        try{
+            return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .withClaim("type", "refresh")
                     .build()
-                    .verify(token);
+                    .verify(token)
+                    .getSubject();
 
-            return userRepository.findByLogin(jwt.getSubject());
-    }
+    } catch (JWTVerificationException e) {
+           return e.getLocalizedMessage();
+        }
+}
 }
