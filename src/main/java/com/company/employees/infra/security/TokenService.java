@@ -20,7 +20,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(user.getLogin())
-                    .withClaim("type", "acces")
+                    .withClaim("type", "access")
                     .withExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES))
                     .sign(Algorithm.HMAC256(secret));}
 
@@ -42,13 +42,13 @@ public class TokenService {
         try{
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
-                    .withClaim("type", "refresh")
+                    .withClaim("type", "access")
                     .build()
                     .verify(token)
                     .getSubject();
 
     } catch (JWTVerificationException e) {
-           return e.getLocalizedMessage();
+        return null;
         }
 }
 }
