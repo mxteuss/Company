@@ -1,6 +1,7 @@
 package com.company.employees.controller;
 
 import com.company.employees.domain.model.Employee;
+import com.company.employees.representation.EmployeeRepresentation;
 import com.company.employees.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -8,7 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
@@ -22,12 +24,27 @@ public class EmployeeController {
     public ResponseEntity<Page<Employee>> findAll(){
         Page<Employee> employees = employeeService.findAll(0, 10);
         return ResponseEntity.ok(employees);
+
+
     }
 
     @GetMapping("/search/{id}")
-    public Optional<Employee> findById(@PathVariable Long id){
-        return Optional.ofNullable(employeeService.findById(id)
+    public ResponseEntity<EmployeeRepresentation> findById(@PathVariable Long id){
+        Employee employee = (employeeService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
+
+        EmployeeRepresentation employeeRepresentation = new EmployeeRepresentation();
+
+        employeeRepresentation.setId(employee.getId());
+        employeeRepresentation.setTipo(employee.getTipo());
+        employeeRepresentation.setNome(employee.getNome());
+        employeeRepresentation.setSalario(employee.getSalario());
+        employeeRepresentation.setAdicional(employee.getAdicional());
+
+        employeeRepresentation.add(linkTo(methodOn(EmployeeController.class).findById(id)).withSelfRel());
+        employeeRepresentation.add(linkTo(methodOn(EmployeeController.class).findAll()).withRel("all-products"));
+
+        return ResponseEntity.ok(employeeRepresentation);
     }
 
     @PostMapping("/save")
