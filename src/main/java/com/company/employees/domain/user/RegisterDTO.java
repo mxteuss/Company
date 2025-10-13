@@ -1,6 +1,5 @@
-package com.company.employees.domain.model.DTO;
+package com.company.employees.domain.user;
 
-import com.company.employees.domain.model.Enum.Roles;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
