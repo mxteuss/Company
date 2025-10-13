@@ -1,6 +1,6 @@
-package com.company.employees.domain.model;
+package com.company.employees.domain.employee;
 
-import com.company.employees.domain.model.Enum.Tipo;
+import com.company.employees.domain.employee.Enum.Tipo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Data;

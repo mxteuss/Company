@@ -1,9 +1,9 @@
 package com.company.employees.controller;
 
-import com.company.employees.domain.model.DTO.AuthenticationDTO;
-import com.company.employees.domain.model.DTO.LoginDTO;
-import com.company.employees.domain.model.DTO.RegisterDTO;
-import com.company.employees.domain.model.User;
+import com.company.employees.domain.user.AuthenticationDTO;
+import com.company.employees.domain.user.LoginDTO;
+import com.company.employees.domain.user.RegisterDTO;
+import com.company.employees.domain.user.User;
 import com.company.employees.infra.security.TokenService;
 import com.company.employees.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -41,10 +41,5 @@ public class UserController {
 
         userRepository.save(newUser);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping
-    public ResponseEntity refresh(User user){
-      return ResponseEntity.ok(tokenService.generateRefreshToken(user));
     }
 }

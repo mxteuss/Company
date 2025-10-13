@@ -1,9 +1,9 @@
 
-package com.company.employees.domain.model;
+package com.company.employees.domain.employee;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.company.employees.domain.model.Enum.Tipo;
+import com.company.employees.domain.employee.Enum.Tipo;
 
 @Data
 @Entity
@@ -12,7 +12,9 @@ import com.company.employees.domain.model.Enum.Tipo;
 @NoArgsConstructor
 @Table(name = "employees")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
@@ -29,9 +31,10 @@ public class Employee {
         this.salario = salario;
     }
 
-
-    Integer salarioFinal() {
-        return null;
+    public Employee(EmployeeDTO data){
+        this.tipo = data.tipo();
+        this.nome = data.name();
+        this.salario = data.salario();
+        this.adicional = data.adicional();
     }
-
 }

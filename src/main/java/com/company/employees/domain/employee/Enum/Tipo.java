@@ -1,4 +1,4 @@
-package com.company.employees.model.Enum;
+package com.company.employees.domain.employee.Enum;
 
 import lombok.Getter;
 
