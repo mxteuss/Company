@@ -1,6 +1,7 @@
 package com.company.employees.controller;
 
-import com.company.employees.domain.model.Employee;
+import com.company.employees.domain.employee.Employee;
+import com.company.employees.repository.EmployeeRepository;
 import com.company.employees.representation.EmployeeRepresentation;
 import com.company.employees.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class EmployeeController {
 
     public EmployeeService employeeService;
+    public EmployeeRepository repository;
 
     @GetMapping("/list")
     public ResponseEntity<Page<Employee>> findAll(){
@@ -48,8 +50,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public Employee save(@RequestBody Employee employee){
-        return employeeService.salvar(employee);
+    public ResponseEntity save(@RequestBody Employee employee){
+        if (employee.getTipo().getDesc().equalsIgnoreCase("Efetivo")){
+            employee.setAdicional(null);
+        }
+        this.repository.save(employee);
+
+        return ResponseEntity.ok().build();
+
     }
 
     @PostMapping("/delete/{id}")

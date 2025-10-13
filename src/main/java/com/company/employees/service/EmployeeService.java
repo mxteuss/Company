@@ -1,10 +1,11 @@
 package com.company.employees.service;
 
 
-import com.company.employees.domain.model.Enum.Tipo;
-import com.company.employees.domain.model.Employee;
+import com.company.employees.domain.employee.Enum.Tipo;
+import com.company.employees.domain.employee.Employee;
 import com.company.employees.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,18 +19,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EmployeeService {
 
+    @Autowired
     public static EmployeeRepository repository;
-
-    public EmployeeService(EmployeeRepository repository) {
-        this.repository = repository;
-    }
 
     public Employee salvar(Employee emp) {
         if(emp.getTipo().equals(Tipo.Efetivo)){
             emp.setAdicional(null);
         }
         return repository.save(emp);
-
     }
 
     public String deleteById(Long id) {
