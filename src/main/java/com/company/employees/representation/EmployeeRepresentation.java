@@ -1,6 +1,6 @@
 package com.company.employees.representation;
 
-import com.company.employees.domain.model.Enum.Tipo;
+import com.company.employees.domain.employee.Enum.Tipo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
