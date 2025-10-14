@@ -24,7 +24,6 @@ Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regr
 - **PostgreSQL**
 - **Docker**
 
--
 ---
 
 ## ⚙️ Como executar o projeto
