@@ -21,11 +21,10 @@ Ele diferencia entre funcionários **full-time** e **part-time**, aplicando regr
 ## 🛠️ Tecnologias utilizadas
 - **Java 25**
 - **Spring boot**
-- **Maven**  
+- **PostgreSQL**
 - **Docker**
-- **MySQL**
-- **JPA**
 
+-
 ---
 
 ## ⚙️ Como executar o projeto
