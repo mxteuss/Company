@@ -1,22 +1,23 @@
 version: '3.8'
 
 services:
-  db:
+  db-empresa:
     image: postgres:15
-    container_name: empresa
+    container_name: db_empresa
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: Company
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
-      - funcionario:/var/lib/postgresql/data
+      - departamento:/var/lib/postgresql/data
     networks:
       - employeemanager_net
 
 volumes:
   funcionario:
+  departamento:
 
 networks:
   employeemanager_net:

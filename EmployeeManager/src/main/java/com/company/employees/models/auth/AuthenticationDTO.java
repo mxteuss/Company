@@ -1,0 +1,9 @@
+package com.company.employees.models.auth;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthenticationDTO(
+        @NotBlank @Valid String login,
+        @NotBlank @Valid String password) {
+}

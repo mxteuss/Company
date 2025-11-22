@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auth/email-service.iml" filepath="$PROJECT_DIR$/auth/email-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EmployeeManager/employees.iml" filepath="$PROJECT_DIR$/EmployeeManager/employees.iml" />
+    </modules>
+  </component>
+</project>
