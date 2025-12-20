@@ -51,11 +51,8 @@ This architecture ensures:
 
 * **Java 17**
 * **Spring Boot**
-* **Spring Web**
-* **Spring Data JPA**
-* **Spring AMQP**
 * **RabbitMQ**
-* **H2 / PostgreSQL**
+* **PostgreSQL**
 * **Maven**
 
 ---
@@ -136,8 +133,9 @@ Content-Type: application/json
 
 {
   "nome": "Mateus",
-  "email": "mateus@example.com",
-  "cargo": "Desenvolvedor"
+  "email": "mateus@exapmple.com",
+  "tipo": "Efetivo",
+  "salario": 2000
 }
 ```
 
