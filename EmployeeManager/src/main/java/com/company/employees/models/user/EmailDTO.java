@@ -1,13 +1,15 @@
 package com.company.employees.models.user;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.UUID;
-
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class EmailDTO {
-
     private Long userId;
     private String emailTo;
     private String subject;

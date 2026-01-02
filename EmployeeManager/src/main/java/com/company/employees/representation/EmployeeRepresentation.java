@@ -1,15 +1,17 @@
 package com.company.employees.representation;
 
+
 import com.company.employees.models.employee.Enum.Tipo;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import org.springframework.hateoas.RepresentationModel;
 
-import java.util.UUID;
 
-@Getter
-@Setter
-public class EmployeeRepresentation extends RepresentationModel<EmployeeRepresentation> {
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class EmployeeRepresentation extends RepresentationModel<@NonNull EmployeeRepresentation> {
     private Long id;
     private Tipo tipo;
     private String nome;

@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.company.employees.models.employee.Enum.Tipo;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 @Data
 @Entity
 @Builder
@@ -27,7 +24,7 @@ public class Employee {
      protected Integer adicional;
      private String email;
 
-    public Employee(Long id, Tipo tipo, String nome, Integer integer, Integer salario) {
+    public Employee(Long id, Tipo tipo, String nome, Integer salario) {
         this.id = id;
         this.tipo = tipo;
         this.nome = nome;

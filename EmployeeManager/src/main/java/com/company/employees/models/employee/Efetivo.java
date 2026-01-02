@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 
 @EqualsAndHashCode(callSuper = false)
 @Data
@@ -19,7 +17,7 @@ import java.util.UUID;
     public class Efetivo extends Employee {
 
         public Efetivo(Long id, Tipo tipo, String nome, Integer salario) {
-            super(id, tipo, nome, salario, salario);
+            super(id, tipo, nome, salario);
         }
 
 
