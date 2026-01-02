@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="employees" />
+        <module name="employee" />
         <module name="email-service" />
       </profile>
     </annotationProcessing>
@@ -15,6 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="email-service" options="-parameters" />
+      <module name="employee" options="-parameters" />
       <module name="employees" options="-parameters" />
       <module name="microservices" options="" />
     </option>

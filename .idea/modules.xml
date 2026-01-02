@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/auth/email-service.iml" filepath="$PROJECT_DIR$/auth/email-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/email-service/email-service.iml" filepath="$PROJECT_DIR$/email-service/email-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EmployeeManager/employee.iml" filepath="$PROJECT_DIR$/EmployeeManager/employee.iml" />
       <module fileurl="file://$PROJECT_DIR$/EmployeeManager/employees.iml" filepath="$PROJECT_DIR$/EmployeeManager/employees.iml" />
     </modules>
   </component>
