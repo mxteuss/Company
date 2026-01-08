@@ -6,8 +6,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -49,9 +51,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
                 if (user != null) {
                     System.out.println("Authorities: " + user.getAuthorities());
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContext context = SecurityContextHolder.getContext();
+                    context.setAuthentication(authRequest);
+
                     System.out.println("Autenticação setada com sucesso");
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("SPRING_SECURITY_CONTEXT", context);
                 }
             }
         }
