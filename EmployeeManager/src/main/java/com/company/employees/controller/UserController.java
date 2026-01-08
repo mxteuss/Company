@@ -1,18 +1,13 @@
 package com.company.employees.controller;
 
 import com.company.employees.models.auth.AuthenticationDTO;
-import com.company.employees.models.auth.LoginDTO;
 import com.company.employees.models.auth.RegisterDTO;
 import com.company.employees.models.auth.User;
-import com.company.employees.infra.TokenService;
 import com.company.employees.repository.UserRepository;
+import com.company.employees.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @AllArgsConstructor
 public class UserController {
-    public AuthenticationManager authenticationManager;
-    private TokenService tokenService;
     public UserRepository userRepository;
+    public AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-            var auth = this.authenticationManager.authenticate(usernamePassword);
-            var token = tokenService.generateAccessToken((User) auth.getPrincipal());
-            return ResponseEntity.ok(new LoginDTO(token));
-        }
-        catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
+      return ResponseEntity.ok(authService.login(data));
     }
 
     @PostMapping("/register")
