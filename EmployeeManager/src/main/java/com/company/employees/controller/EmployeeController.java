@@ -97,13 +97,13 @@ public class EmployeeController {
     @Operation(summary = "Relatório", description = "Retorna um relatório em email dos usuários cadastrados e seus salários.")
     @ApiResponse(responseCode = "200", description = "Relatório enviado com sucesso.")
     @ApiResponse(responseCode = "500", description = "Erro no servidor.")
-    public ResponseEntity<byte[]> report(){
+    public ResponseEntity<String> report(){
         byte[] pdf = employeeService.report();
 
         if (pdf == null){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(pdf);
+        return ResponseEntity.ok("Relatório enviado com sucesso.");
     }
 
 }
