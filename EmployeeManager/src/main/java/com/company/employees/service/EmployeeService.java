@@ -5,14 +5,17 @@ import com.company.employees.models.employee.Enum.Tipo;
 import com.company.employees.models.employee.Employee;
 import com.company.employees.producer.EmployeeProducer;
 import com.company.employees.repository.EmployeeRepository;
+import jakarta.activation.DataSource;
+import jakarta.mail.Message;
+import jakarta.mail.util.ByteArrayDataSource;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import org.openpdf.text.Document;
 import org.openpdf.text.Font;
 import org.openpdf.text.Paragraph;
 import org.openpdf.text.pdf.PdfPTable;
+import org.openpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -79,10 +82,10 @@ public class EmployeeService {
 
     public byte[] report() {
         Document document = new Document();
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        document.open();
 
+        PdfWriter.getInstance(document, baos);
+        document.open();
         Font font = new Font(Font.HELVETICA, 18, Font.NORMAL);
         Paragraph titulo = new Paragraph("Relatório", font);
         titulo.setAlignment(Paragraph.ALIGN_CENTER);
@@ -113,10 +116,15 @@ public class EmployeeService {
 
         mailSender.send(message -> {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
-            message.setFrom(emailFrom);
-            message.setSubject("Relatório de Funcionários");
-            message.setText("Segue em anexo o relatório de funcionários.");
-            helper.addAttachment("relatorio_funcionarios.pdf", new ByteArrayResource(baos.toByteArray()));
+            helper.setFrom(emailFrom);
+            helper.setSubject("Relatório de Funcionários");
+            message.setRecipients(Message.RecipientType.TO, emailFrom);
+            helper.setText("Segue em anexo o relatório de funcionários.");
+
+            DataSource dataSource = new ByteArrayDataSource(
+                    baos.toByteArray(),
+                    "application/pdf");
+            helper.addAttachment("relatorio_funcionarios.pdf", dataSource);
         });
         return baos.toByteArray();
     }
