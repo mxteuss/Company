@@ -3,6 +3,7 @@ package com.company.employees.controller;
 import com.company.employees.infra.SecurityConfiguration;
 import com.company.employees.models.employee.Employee;
 import com.company.employees.models.employee.EmployeeDTO;
+import com.company.employees.producer.EmployeeProducer;
 import com.company.employees.representation.EmployeeRepresentation;
 import com.company.employees.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +30,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class EmployeeController {
 
     public EmployeeService employeeService;
+    private EmployeeProducer employeeProducer;
 
     @Operation(summary = "Listar funcionários", description = "Lista todos os funcionários cadastrados no sistema.")
     @ApiResponse(responseCode = "200", description = "Funcionários listados.")
@@ -93,17 +95,22 @@ public class EmployeeController {
     }
     }
 
-    @GetMapping("/report")
     @Operation(summary = "Relatório", description = "Retorna um relatório em email dos usuários cadastrados e seus salários.")
     @ApiResponse(responseCode = "200", description = "Relatório enviado com sucesso.")
     @ApiResponse(responseCode = "500", description = "Erro no servidor.")
-    public ResponseEntity<String> report(){
-        byte[] pdf = employeeService.report();
+    @GetMapping("/report")
+    public ResponseEntity<@NonNull String> report(){
+        System.out.println("Enviando relatório por email...");
+        byte[] pdf = employeeProducer.sendReportEmail();
 
         if (pdf == null){
+            System.out.println("Erro ao enviar o relatório.");
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok("Relatório enviado com sucesso.");
+        else {
+            System.out.println("Relatório enviado com sucesso.");
+            return ResponseEntity.ok("Relatório enviado com sucesso.");
+        }
     }
 
 }

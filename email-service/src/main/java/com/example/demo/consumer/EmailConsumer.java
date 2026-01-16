@@ -1,11 +1,10 @@
 package com.example.demo.consumer;
 
-
 import com.example.demo.dto.EmailDTO;
 import com.example.demo.model.EmailModel;
-import com.example.demo.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 public class    EmailConsumer {
 
     @Autowired
-    private final EmailService emailService;
+    private final RabbitTemplate rabbitTemplate;
 
     @RabbitListener(queues = "${broker.queue.email.name}" )
     public void listenEmail(@Payload EmailDTO emailDTO) {
@@ -34,6 +33,6 @@ public class    EmailConsumer {
         catch (Exception e) {
             e.printStackTrace(System.out);
         }
-        emailService.sendEmail(EmailModel);
+        rabbitTemplate.convertAndSend("", "email-queue", EmailModel);
     }
 }
