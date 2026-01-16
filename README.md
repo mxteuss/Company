@@ -62,12 +62,14 @@ This architecture ensures:
 ```
 microservices
 ├── employee-service
+│   ├── config
 │   ├── controller
-│   ├── domain
-│   ├── dto
+│   ├── infra
+│   ├── model
+│   ├── producer
 │   ├── repository
+│   ├── representation
 │   ├── service
-│   └── config
 └── email-service
     ├── consumer
     ├── model
