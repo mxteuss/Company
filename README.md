@@ -29,27 +29,11 @@ The solution contains **two independent services**:
 
 # 🔗 Communication Flow
 
-```
-┌──────────────────┐      Message      ┌───────────────────┐
-│ Employee Service │ ─────────────────▶│   RabbitMQ Queue   │
-└──────────────────┘                   └─────────▲─────────┘
-                                                  │
-                                                  │ Consumes
-                                         ┌────────┴────────┐
-                                         │  Email Service   │
-                                         └──────────────────┘
-```
-
-This architecture ensures:
-✔ Decoupled services
-✔ Asynchronous event handling
-✔ Independent failure isolation
-
----
+<img width="1664" height="490" alt="Untitled-2026-01-16-1837(1)" src="https://github.com/user-attachments/assets/883dd647-cba4-4b49-9462-481348ce0d5c" />
 
 # 🧰 Tech Stack
 
-* **Java 17**
+* **Java 21**
 * **Spring Boot**
 * **RabbitMQ**
 * **PostgreSQL**
