@@ -1,0 +1,41 @@
+name: Java CI/CD
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master]
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v3
+
+      - name: Setup Java 25
+        uses: actions/setup-java@v3
+        with:
+          java-version: '25'
+          distribution: 'zulu'
+          cache: 'maven'
+
+      - name: Run unit tests
+        run: ./mvnw test
+
+      - name: Run integration tests
+        run: ./mvnw verify -Pintegration-tests
+
+      - name: Build JAR
+        run: ./mvnw clean package -DskipTests
+        
+      - name: Build Docker image
+        run: docker build -t db_empresa:latest .
+
+      - name: Test Docker container 
+        run: |
+          docker run -d -p 5432:5432 --name test-app db_empresa:latest
+          sleep 10
+          curl http://localhost:9090/employees/list
+          docker stop test-app
