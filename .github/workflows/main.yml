@@ -22,13 +22,13 @@ jobs:
           cache: 'maven'
 
       - name: Run unit tests
-        run: ./mvnw test
+        run: mvn test
 
       - name: Run integration tests
-        run: ./mvnw verify -Pintegration-tests
+        run: mvn verify -Pintegration-tests
 
       - name: Build JAR
-        run: ./mvnw clean package -DskipTests
+        run: mvn clean package -DskipTests
         
       - name: Build Docker image
         run: docker build -t db_empresa:latest .
