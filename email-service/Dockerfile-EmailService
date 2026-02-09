@@ -1,0 +1,14 @@
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+
+COPY pom.xml .
+COPY email-service/pom.xml ./email-service/
+COPY email-service/src ./email-service/src
+
+RUN mvn clean package -DskipTests -pl email-service -am
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/email-service/target/email-service-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 9091
+ENTRYPOINT ["java", "-jar", "app.jar"]
