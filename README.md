@@ -1,6 +1,6 @@
 # Microservices Architecture - Spring Boot + RabbitMQ
 
-![Java](https://img.shields.io/badge/Java-17+-blue)
+![Java](https://img.shields.io/badge/Java-25-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-Microservices-brightgreen)
 ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Message%20Broker-orange)
 ![Status](https://img.shields.io/badge/Project%20Status-In%20Development-yellow)
