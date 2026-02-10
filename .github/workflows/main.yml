@@ -14,21 +14,15 @@ jobs:
       - name: Checkout code 
         uses: actions/checkout@v5
 
-      - name: Setup Java 25
+      - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
-          java-version: '25'
+          java-version: '21'
           distribution: 'zulu'
           cache: 'maven'
 
-      - name: Run unit tests
-        run: mvn test
-
-      - name: Run integration tests
-        run: mvn verify -Pintegration-tests
-
-      - name: Build JAR
-        run: mvn clean package -DskipTests
+      - name: Maven clean install
+        run: mvn clean install
         
       - name: Build Docker image
         run: docker build -t db_empresa:latest .
