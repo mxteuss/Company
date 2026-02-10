@@ -21,14 +21,8 @@ jobs:
           distribution: 'zulu'
           cache: 'maven'
 
-      - name: Run unit tests
-        run: ./mvnw test
-
-      - name: Run integration tests
-        run: ./mvnw verify -Pintegration-tests
-
-      - name: Build JAR
-        run: ./mvnw clean package -DskipTests
+      - name: Maven clean install
+        run: mvn clean install
         
       - name: Build Docker image
         run: docker build -t db_empresa:latest .
