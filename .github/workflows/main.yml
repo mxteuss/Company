@@ -32,17 +32,23 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v4
+
+
+      - name: Debug vars
+        run: |
+          echo "Username is: ${{ vars.DOCKERHUB_USERNAME  != ''}}"
+          echo "Password is: ${{ secrets.DOCKERHUB_TOKEN != ''}}"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{vars.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_TOKEN}}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ vars.DOCKERHUB_USERNAME}}/db_empresa:latest
-            ${{ vars.DOCKERHUB_USERNAME}}/db_empresa:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:${{ github.sha }}
 
