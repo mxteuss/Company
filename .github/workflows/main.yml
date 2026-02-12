@@ -1,4 +1,4 @@
-name: Java CI/CD
+name: Deploy to EC2 
 on:
   push:
     branches: [master, develop]
@@ -51,4 +51,7 @@ jobs:
           tags: |
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:${{ github.sha }}
+
+      - name: Connect instance 
+        run: ssh -i ${{ secrets.AWS_ACESS_KEY }}@18.207.155.141 
 
