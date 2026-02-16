@@ -7,7 +7,6 @@ import com.company.employees.models.auth.User;
 import com.company.employees.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,15 +19,15 @@ import java.util.Objects;
 @Service
 public class AuthService implements UserDetailsService {
 
-    @Autowired
     private final UserRepository userRepository;
-    private AuthenticationManager authenticationManager;
-    private TokenService tokenService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
 
-
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
     }
 
     @Override
