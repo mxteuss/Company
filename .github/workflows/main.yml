@@ -53,5 +53,8 @@ jobs:
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:${{ github.sha }}
 
       - name: Connect instance 
-        run: ssh -i ${{ secrets.AWS_ACESS_KEY }}@18.207.155.141 
+        run: |
+           echo "${{ secrets.AWS_ACESS_KEY }}" > key.pem 
+           chmod 400 key.pem
+           ssh -i key.pem -o StrictHostKeyChecking=no ec2-user@18.207.155.141 
 
