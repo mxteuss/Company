@@ -1,40 +1,29 @@
 name: Deploy EC2
-
 on:
   push:
     branches: [ master, develop]
     
 jobs:
- test:
+  test:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code 
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'zulu'
           cache: 'maven'
-
       - name: Maven clean verify
         run: mvn clean verify
  
   build-and-push:
     runs-on: ubuntu-latest
     needs: test
-    environment: dockerhub_env
     if: github.ref == 'refs/heads/master'
+    environment: dockerhub_env
     steps:
       - uses: actions/checkout@v4
-
-
-      - name: Debug vars
-        run: |
-          echo "Username is: ${{ vars.DOCKERHUB_USERNAME  != ''}}"
-          echo "Password is: ${{ secrets.DOCKERHUB_TOKEN != ''}}"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -48,24 +37,19 @@ jobs:
           tags: |
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:${{ github.sha }}
-
       
- build: 
-    needs: test
-    runs-on: ubuntu-latest 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/master'
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
-    - name: Connect and Deploy
-      run: |
-       echo "${{secrets.AWS_ACESS_KEY}}" > key.pem
-       chmod 400 key.pem
-       ssh -i key.pem -o StrictHostKeyChecking=no ec2-user@{{$secrets.AWS_HOST}}
-        docker pull ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest &&
-        docker stop app || true &&
-        docker rm app || true &&
-        docker run -d --name app -p 80:8080 ${{ vars.DOCKERHUB_UUSERNAME  }}/db_empresa:latest
-      
-    
+      - name: Connect and Deploy
+        run: |
+          echo "${{ secrets.AWS_ACESS_KEY }}" > key.pem
+          chmod 400 key.pem
+          ssh -i key.pem -o StrictHostKeyChecking=no ec2-user@${{ secrets.AWS_HOST }} "
+            docker pull ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest &&
+            docker stop app || true &&
+            docker rm app || true &&
+            docker run -d --name app -p 80:8080 ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest
+          "
