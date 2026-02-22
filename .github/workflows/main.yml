@@ -1,13 +1,11 @@
-name: Deploy to EC2 
+name: Deploy EC2
+
 on:
   push:
-    branches: [master, develop]
-  pull_request:
-    branches: [master]
-
-
+    branches: [ master, develop]
+    
 jobs:
-  test:
+ test:
     runs-on: ubuntu-latest
     
     steps:
@@ -23,8 +21,7 @@ jobs:
 
       - name: Maven clean verify
         run: mvn clean verify
-
-
+ 
   build-and-push:
     runs-on: ubuntu-latest
     needs: test
@@ -52,9 +49,23 @@ jobs:
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest
             ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:${{ github.sha }}
 
-      - name: Connect instance 
-        run: |
-           echo "${{ secrets.AWS_ACESS_KEY }}" > key.pem 
-           chmod 400 key.pem
-           ssh -i key.pem -o StrictHostKeyChecking=no ec2-user@18.207.155.141 
+      
+ build: 
+    needs: test
+    runs-on: ubuntu-latest 
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
+    - name: Connect and Deploy
+      run: |
+       echo "${{secrets.AWS_ACESS_KEY}}" > key.pem
+       chmod 400 key.pem
+       ssh -i key.pem -o StrictHostKeyChecking=no ec2-user@{{$secrets.AWS_HOST}}
+        docker pull ${{ vars.DOCKERHUB_USERNAME }}/db_empresa:latest &&
+        docker stop app || true &&
+        docker rm app || true &&
+        docker run -d --name app -p 80:8080 ${{ vars.DOCKERHUB_UUSERNAME  }}/db_empresa:latest
+      
+    
